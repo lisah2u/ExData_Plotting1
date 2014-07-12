@@ -26,12 +26,13 @@ downloadFile <- function() {
 readZip <- function() {
 	unzip(fileDir)
 	f <- unzip(fileDir,list=TRUE)  # filename is f$Name
-	query <- "SELECT * from file where Date='2/1/2007' OR Date ='1/2/2007'"
+	query <- "SELECT * from file where Date='1/2/2007' OR Date ='2/2/2007'"
 	hpc <- read.csv2.sql(paste(dataDir,f$Name,sep=""),sql=query)
 	
-	hpc$newDate <- as.Date(hpc$Date, format="%d/%m/%Y") 
-	hpc$newDateTime <- as.character(paste(hpc$newDate,hpc$Time))
-	hpc$newDateTime <- strptime(hpc$newDateTime, "%Y-%m-%d %H:%M:%S")
+	#hpc$newDate <- as.Date(hpc$Date, format="%d/%m/%Y") 
+	#hpc$newDateTime <- as.character(paste(hpc$newDate,hpc$Time))
+	#hpc$newDateTime <- strptime(hpc$newDateTime, "%Y-%m-%d %H:%M:%S")
+	hpc$newDateTime <- strptime(paste(hpc$Date,hpc$Time),"%d/%m/%Y %H:%M:%S")
 	hpc
 }
 
